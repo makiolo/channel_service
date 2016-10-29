@@ -1,0 +1,12 @@
+[submodule "simple_match"]
+	path = simple_match
+	url = https://github.com/jbandela/simple_match.git
+[submodule "cmaki"]
+	path = cmaki
+	url = https://github.com/makiolo/cmaki.git
+[submodule "artifacts"]
+	path = artifacts
+	url = git@bitbucket.org:makiolo/cmaki.git
+[submodule "cmaki_generator"]
+	path = cmaki_generator
+	url = https://github.com/makiolo/cmaki_generator.git
