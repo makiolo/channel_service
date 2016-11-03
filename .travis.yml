@@ -50,6 +50,7 @@ matrix:
 
 install:
   - pip install pyyaml
+  - pip install poster
 
 script:
   - mkdir release
