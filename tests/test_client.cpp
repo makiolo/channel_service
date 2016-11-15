@@ -1,15 +1,15 @@
 #include <iostream>
 #include <sstream>
 #include <cstdio>
-#include <fes/sync.h>
-#include <fes/async_fast.h>
-#include "serialize.h"
-#include "deserialize.h"
-#include "network_server.h"
-#include "network_client.h"
 #include <thread>
 #include <map>
-#include "util.h"
+#include <fes/sync.h>
+#include <fes/async_fast.h>
+#include <channel_service/serialize.h>
+#include <channel_service/deserialize.h>
+#include <channel_service/network_server.h>
+#include <channel_service/network_client.h>
+#include <channel_service/util.h>
 
 #define CHAT 300
 
