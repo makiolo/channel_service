@@ -1,3 +1,10 @@
-{boost-atomic: 1.62.0.0, boost-chrono: 1.62.0.0, boost-context: 1.62.0.0, boost-coroutine2: 1.62.0.0,
-  boost-filesystem: 1.62.0.0, boost-headers: 1.62.0.0, boost-system: 1.62.0.0, boost-thread: 1.62.0.0,
-  fast-event-system: 0.0.500.651, raknet: 0.0.18.419}
+--- 
+boost-atomic: "1.62.0.0"
+boost-chrono: "1.62.0.0"
+boost-context: "1.62.0.0"
+boost-coroutine2: "1.62.0.0"
+boost-filesystem: "1.62.0.0"
+boost-headers: "1.62.0.0"
+boost-system: "1.62.0.0"
+boost-thread: "1.62.0.0"
+raknet: "0.0.18.419"
