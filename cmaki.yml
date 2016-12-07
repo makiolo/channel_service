@@ -1,0 +1,17 @@
+- channel_service:
+    <<: *thirdparty_defaults
+    version: 0.0.0.0
+    version_manager: git
+    cmake_target: null
+    depends:
+        - raknet
+        - fast-event-system
+    post_install:
+        - ./*.h include/channel_service
+    mode: dr
+    source: https://github.com/makiolo/channel_service.git
+    targets:
+        - channel_service:
+            info:
+                <<: *library_dynamic_exact
+
