@@ -5,6 +5,7 @@
 #include <map>
 #include <fast-event-system/sync.h>
 #include <fast-event-system/async_fast.h>
+#include <teelogging/teelogging.h>
 #include "../serialize.h"
 #include "../deserialize.h"
 #include "../network_server.h"
@@ -26,7 +27,7 @@ int main()
 	});
 	// si el cliente falla la conexion
 	client.id_connection_attempt_failed.connect([&](auto packet) {
-		std::cout << "connection with server failed" << std::endl;
+		LOGE("connection with server failed");
 		exit(1);
 	});
 	// un nuevo cliente se ha conectado al servidor
@@ -39,11 +40,11 @@ int main()
 	});
 	// si se ha desconectado un cliente hermano
 	client.on_disconnect.connect([&](auto guid) {
-		std::cout << "disconnection of client " << guid << std::endl;
+		LOGI("disconnection of client %s", guid.c_str());
 	});
 	// si se pierde la conexion con el servidor
 	client.on_disconnect_server.connect([&](auto guid) {
-		std::cout << "connection lost with server " << guid << std::endl;
+		LOGE("connection lost with server %s", guid.c_str());
 		exit(1);
 	});
 
