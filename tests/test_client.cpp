@@ -40,11 +40,11 @@ int main()
 	});
 	// si se ha desconectado un cliente hermano
 	client.on_disconnect.connect([&](auto guid) {
-		LOGI("disconnection of client %s", guid.c_str());
+		LOGI("disconnection of client %s", guid.C_String());
 	});
 	// si se pierde la conexion con el servidor
 	client.on_disconnect_server.connect([&](auto guid) {
-		LOGE("connection lost with server %s", guid.c_str());
+		LOGE("connection lost with server %s", guid.C_String());
 		exit(1);
 	});
 
