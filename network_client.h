@@ -9,9 +9,9 @@ class serializer_API network_client : public network_base
 {
 public:
 	explicit network_client(const ser::string& alias, const std::string& host, uint16 port, uint16 connection_timeout = DEFAULT_CONNECTION_TIMEOUT);
-    virtual ~network_client();
-    network_client(const network_client&) = delete;
-    network_client& operator=(const network_client&) = delete;
+	virtual ~network_client();
+	network_client(const network_client&) = delete;
+	network_client& operator=(const network_client&) = delete;
 
 	void status();
 	void disconnect();
