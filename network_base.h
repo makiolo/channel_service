@@ -68,7 +68,7 @@ public:
 		}
 	}
 
-	void update_for(fes::deltatime time)
+	void fortime(fes::deltatime time)
 	{
 		auto mark = fes::high_resolution_clock() + time;
 		while(fes::high_resolution_clock() <= mark)
