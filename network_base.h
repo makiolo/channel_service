@@ -9,7 +9,7 @@
 #include <raknet/RakPeerInterface.h>
 #include <raknet/RakNetTypes.h>
 #include <raknet/BitStream.h>
-#include <fast-event-system/sync.h>
+#include <fast-event-system/bind.h>
 #include <fast-event-system/clock.h>
 #include <fast-event-system/async_fast.h>
 #include "serialize.h"
@@ -199,18 +199,18 @@ protected:
 
 public:
 	// connection by client is failed (guid)
-	fes::sync<ser::string> id_connection_attempt_failed;
+	fes::bind<ser::string> id_connection_attempt_failed;
 	// connection by client is ok
-	fes::sync<ser::string> on_connection_request_accepted;
+	fes::bind<ser::string> on_connection_request_accepted;
 	// other side is disconnected (client or server) (guid)
-	fes::sync<ser::string> on_id_connection_lost;
+	fes::bind<ser::string> on_id_connection_lost;
 	// a client request disconnection (guid)
-	fes::sync<ser::string> on_id_disconnection_notification;
+	fes::bind<ser::string> on_id_disconnection_notification;
 	// guid
-	fes::sync<ser::string> on_new_client;
-	fes::sync<ser::string> on_disconnect;
+	fes::bind<ser::string> on_new_client;
+	fes::bind<ser::string> on_disconnect;
 	// guid, alias
-	fes::sync<ser::string, ser::string> on_changed_alias;
+	fes::bind<ser::string, ser::string> on_changed_alias;
 protected:
 	RakNet::RakPeerInterface* _peer;
 	std::unordered_map<int, ser::net_channel> _requests;
