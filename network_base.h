@@ -26,7 +26,7 @@ namespace ser {
 using string = RakNet::RakString;
 using stream = RakNet::BitStream;
 // version, pipe, sender
-using net_channel = fes::sync<int, ser::stream, ser::string>;
+using net_channel = fes::bind<int, ser::stream, ser::string>;
 using net_connection = fes::connection<int, ser::stream, ser::string>;
 
 enum InternalMessages
