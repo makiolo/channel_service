@@ -5,8 +5,9 @@ set(CMAKI_REPOSITORY "http://artifacts.myftp.biz:8080")
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmaki/cmaki.cmake")
 cmaki_setup()
 
-cmaki_find_package(fast-event-system)
 cmaki_find_package(raknet)
+cmaki_find_package(fast-event-system)
+cmaki_find_package(cppunix)
 cmaki2_library(channel_service network_base.cpp network_client.cpp network_server.cpp network_node.cpp)
 
 add_subdirectory(tests)
