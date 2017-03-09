@@ -84,7 +84,7 @@ public:
 protected:
 	virtual void notify_alias(const ser::string& guid, const ser::string& alias) override;
 public:
-	fes::sync<ser::string> on_disconnect_server;
+	fes::bind<ser::string> on_disconnect_server;
 protected:
 	std::string _host;
 	uint16 _port;
