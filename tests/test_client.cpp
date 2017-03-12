@@ -8,8 +8,8 @@
 #include <teelogging/teelogging.h>
 #include "../serialize.h"
 #include "../deserialize.h"
-#include "../network_server.h"
-#include "../network_client.h"
+#include "../server.h"
+#include "../client.h"
 #include "../util.h"
 
 #define CHAT 300
@@ -19,7 +19,7 @@ int main()
 	std::cout << std::unitbuf;
 	std::cout.sync_with_stdio(false);
 	bool quit = false;
-	ser::network_client client("client", "127.0.0.1", 5555);
+	ser::client client("client", "127.0.0.1", 5555);
 	std::cout << "client = " << client.get_guid() << std::endl;
 
 	client.on_connection_request_accepted.connect([&](auto guid_server) {

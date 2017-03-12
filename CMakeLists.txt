@@ -8,6 +8,7 @@ cmaki_setup()
 cmaki_find_package(raknet)
 cmaki_find_package(fast-event-system)
 cmaki_find_package(cppunix)
-cmaki2_library(channel_service network_base.cpp network_client.cpp network_server.cpp network_node.cpp)
+cmaki2_library(channel_service base.cpp client.cpp server.cpp node.cpp)
 
 add_subdirectory(tests)
+

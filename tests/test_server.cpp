@@ -7,8 +7,8 @@
 #include <fast-event-system/async_fast.h>
 #include "../serialize.h"
 #include "../deserialize.h"
-#include "../network_server.h"
-#include "../network_client.h"
+#include "../server.h"
+#include "../client.h"
 #include "../util.h"
 
 #define CHAT 300
@@ -16,7 +16,7 @@
 int main2()
 {
 	ser::network_server server("server", 5555);
-	ser::network_client client("client", "127.0.0.1", 5555);
+	ser::client client("client", "127.0.0.1", 5555);
 	client.on_connection_request_accepted.connect([&](auto guid_server) {
 		std::cout << "conectado a " << guid_server << std::endl;
 		client.send_parent(1, 2, 3);

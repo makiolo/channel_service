@@ -3,7 +3,7 @@
 
 // #include <msgpack.hpp>
 #include <fast-event-system/metacommon/common.h>
-#include "network_base.h"
+#include "base.h"
 
 namespace ser {
 

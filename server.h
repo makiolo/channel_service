@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <set>
-#include "network_base.h"
+#include "base.h"
 
 namespace ser {
 

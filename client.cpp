@@ -1,10 +1,10 @@
-#include "network_client.h"
+#include "client.h"
 //
 #include <iostream>
 
 namespace ser {
 
-network_client::network_client(const ser::string& alias, const std::string& host, uint16 port, uint16 connection_timeout)
+client::client(const ser::string& alias, const std::string& host, uint16 port, uint16 connection_timeout)
 			: network_base(alias)
 			, _host(host)
 			, _port(port)
@@ -25,24 +25,24 @@ network_client::network_client(const ser::string& alias, const std::string& host
 	});
 }
 
-network_client::~network_client()
+client::~client()
 {
 
 }
 
-void network_client::status()
+void client::status()
 {
 	std::cout << "client connected to " << _server_guid.ToString() << std::endl;
 	// show resolver table
 	print_resolver_table();
 }
 
-void network_client::disconnect()
+void client::disconnect()
 {
 	_peer->CloseConnection(_server_guid, true);
 }
 
-void network_client::on_package(RakNet::Packet* packet)
+void client::on_package(RakNet::Packet* packet)
 {
 	switch (packet->data[0])
 	{
@@ -119,7 +119,7 @@ void network_client::on_package(RakNet::Packet* packet)
 	}
 }
 
-void network_client::notify_alias(const ser::string& guid, const ser::string& alias)
+void client::notify_alias(const ser::string& guid, const ser::string& alias)
 {
 	// notify change to server
 	{

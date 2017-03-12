@@ -5,7 +5,7 @@
 #include <tuple>
 #include <string>
 #include "api.h"
-#include "network_base.h"
+#include "base.h"
 #include <type_traits>
 
 namespace ser {
