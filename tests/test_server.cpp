@@ -10,6 +10,7 @@
 #include "../server.h"
 #include "../client.h"
 #include "../util.h"
+#include <cppunix/scheduler.h>
 
 #define CHAT 300
 
@@ -43,6 +44,8 @@ int main2()
 
 int main()
 {
+	cu::scheduler sch;
+
 	std::cout << std::unitbuf;
 	std::cout.sync_with_stdio(false);
 	bool quit = false;
