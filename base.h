@@ -47,17 +47,19 @@ enum InternalMessages
 	NET_MESSAGE_ROOM_FORWARD = ID_USER_PACKET_ENUM + 9,
 	// enviar desde el servidor al cliente
 	NET_MESSAGE_ROOM_DATA = ID_USER_PACKET_ENUM + 10,
+	// TODO: whois: pedir listado de canales de un cliente
+	// NET_MESSAGE_WHOIS = ID_USER_PACKET_ENUM + 11,
 	//
-	NET_MESSAGE_CUSTOM = ID_USER_PACKET_ENUM + 11
+	NET_MESSAGE_CUSTOM = ID_USER_PACKET_ENUM + 12
 };
 
 class serializer_API network_base
 {
 public:
 	explicit network_base(const ser::string& alias);
-    virtual ~network_base();
-    network_base(const network_base&) = delete;
-    network_base& operator=(const network_base&) = delete;
+	virtual ~network_base();
+	network_base(const network_base&) = delete;
+	network_base& operator=(const network_base&) = delete;
 
 	void update(fes::deltatime tmax = fes::deltatime(16))
 	{
