@@ -123,9 +123,8 @@ void network_server::on_package(RakNet::Packet* packet)
 			int version;
 			ser::stream pipe;
 			unpack(packet, from_guid, port, version, pipe);
-			// publish data
+			
 			on_data(port, version, pipe, from_guid);
-			get_channel(port)(version, pipe, from_guid);
 			break;
 		}
 		case NET_MESSAGE_BROADCAST:
