@@ -134,7 +134,7 @@ int main()
 						if(i > 1) buf += (word + ' ');
 						++i;
 					}
-					server.send_private(guid, CHAT, 1, buf.c_str());
+					server.one(guid, CHAT, 1, buf.c_str());
 				}
 				catch(std::exception& e)
 				{
@@ -151,7 +151,7 @@ int main()
 					if(i > 1) buf += (word + ' ');
 					++i;
 				}
-				server.send_room(room, 1, buf.c_str());
+				server.topic(room, 1, buf.c_str());
 			}
 			else if(chunks[0] == "ping")
 			{
@@ -175,7 +175,7 @@ int main()
 			}
 			else
 			{
-				server.broadcast(CHAT, 1, command.c_str());
+				server.all(CHAT, 1, command.c_str());
 			}
 		}
 	}
