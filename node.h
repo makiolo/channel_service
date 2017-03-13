@@ -14,8 +14,8 @@ public:
 		: _alias(alias)
 		, _server(alias, port)
 	{
-		_server.get_channel(0).connect(
-			[&](int version, const ser::stream& pipe, const ser::string& guid) {
+		_server.on_data.connect(
+			[&](int port, int version, const ser::stream& pipe, const ser::string& guid) {
 				// port
 				// version
 				// pipe to tuple<Args> -> to unpack Args ...
@@ -23,26 +23,50 @@ public:
 				std::cout << "version = " << version << std::endl;
 				ser::deserialize<Args...>(pipe, data);
 				std::cout << "data = " << data << std::endl;
+				
+				// viene de llamadas remotas
+				// meter en "_output"
+				
 				*/
 			}
 		);
-	}
-
-	virtual ~node()
-	{
-		;
 	}
 	
 	node(const node&) = delete;
 	node& operator=(const node&) = delete;
 
+	// produccion nunca bloquea
 	template <typename ... PARMS>
 	void operator()(int port, int version, PARMS&&... data) const
 	{
+		// viene de llamadas locales
+		// meter en "_output"
+	}
+	
+	// blocking until a number of clients is connected ?
+	/*
+	void wait(int clients = 1)
+	{
+		
+	}
+	*/
+	
+	// consumo puede bloquear
+	inline auto get() -> std::tuple<Args...>
+	{
+		auto& t = _buf.get();
+		// enviar la tupla a local
+		// propagar en local
+		
+		// enviar la tupla a remoto
+		// propagar en remoto
+		/*
 		for(auto& client : _clients)
 		{
 			client.up(port, version, std::forward<PARMS>(data)...)
 		}
+		*/
+		return std::move(t);
 	}
 	
 	void connect(const std::string& host, uint16 port)
@@ -88,30 +112,9 @@ public:
 	}
 	*/
 	
-	inline auto get() -> std::tuple<Args...>
-	{
-		return _get();
-	}
-	
 protected:
-	template <typename Tuple, int... S>
-	inline void get(Tuple&& top, seq<S...>) const
-	{
-		_output(std::get<S>(std::forward<Tuple>(top))...);
-	}
-
-	inline auto _get() -> std::tuple<Args...>
-	{
-		// esperar a tener algo en el server
-		std::tuple<Args...> t;
-		// leer el primer mensaje
-		get(std::forward<std::tuple<Args...> >(t), gens<sizeof...(Args)>{});
-		return std::move(t);
-	}
-	
-protected:
-	sync<Args...> _output;
 	ser::string _alias;
+	fes::async_fast<Args...> _output;
 	std::vector<ser::client> _clients;
 	ser::network_server _server;
 };
