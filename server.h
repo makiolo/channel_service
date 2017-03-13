@@ -218,21 +218,24 @@ public:
 
 	void status();
 	void disconnect();
-
-	/*
-	 * remove disconnected clients
-	 */
 	void cleanup()
 	{
 		_room_system.cleanup();
 	}
-
 	virtual void on_new_incoming_connection(RakNet::Packet* packet) override;
 	virtual void on_package(RakNet::Packet* packet) override;
 
-	// send all
 	template <typename ... Args>
-	void broadcast(int port, int version, Args&& ... data) const
+	void one(const ser::string& to_guid, int port, int version, Args&& ... data) const
+	{
+		ser::stream pipe;
+		write_header(pipe, NET_MESSAGE_DATA);
+		ser::serialize(pipe, this->get_guid(), port, version, std::forward<Args>(data)...);
+		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, this->convert_to_address(to_guid), false);
+	}
+
+	template <typename ... Args>
+	void all(int port, int version, Args&& ... data) const
 	{
 		ser::stream pipe;
 		write_header(pipe, NET_MESSAGE_DATA);
@@ -240,9 +243,8 @@ public:
 		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, RakNet::UNASSIGNED_SYSTEM_ADDRESS, true);
 	}
 
-	// send anybody
 	template <typename ... Args>
-	void send_room(const ser::string& room, int version, Args&& ... data)
+	void topic(const ser::string& room, int version, Args&& ... data)
 	{
 		// is non-const, can create new rooms
 		for(auto& weak_client : _room_system.get_room(room))
@@ -255,16 +257,6 @@ public:
 				_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, client->get_raw(), false);
 			}
 		}
-	}
-
-	// send one
-	template <typename ... Args>
-	void send_private(const ser::string& to_guid, int port, int version, Args&& ... data) const
-	{
-		ser::stream pipe;
-		write_header(pipe, NET_MESSAGE_DATA);
-		ser::serialize(pipe, this->get_guid(), port, version, std::forward<Args>(data)...);
-		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, this->convert_to_address(to_guid), false);
 	}
 
 public:
