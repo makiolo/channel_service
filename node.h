@@ -19,15 +19,18 @@ public:
 				// port
 				// version
 				// pipe to tuple<Args> -> to unpack Args ...
+
+				// enviar la tupla a remoto
+				// propagar en remoto
 				/*
-				std::cout << "version = " << version << std::endl;
-				ser::deserialize<Args...>(pipe, data);
-				std::cout << "data = " << data << std::endl;
-				
-				// viene de llamadas remotas
-				// meter en "_output"
-				
+				for(auto& client : _clients)
+				{
+					client.up(port, version, std::forward<PARMS>(data)...)
+				}
 				*/
+			
+				// viene de llamadas remotas
+				// meter en "_output" (truncando port o version ?)
 			}
 		);
 	}
@@ -58,14 +61,6 @@ public:
 		// enviar la tupla a local
 		// propagar en local
 		
-		// enviar la tupla a remoto
-		// propagar en remoto
-		/*
-		for(auto& client : _clients)
-		{
-			client.up(port, version, std::forward<PARMS>(data)...)
-		}
-		*/
 		return std::move(t);
 	}
 	
