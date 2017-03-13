@@ -10,9 +10,9 @@ class serializer_API node
 {
 public:
 	explicit node(const ser::string& alias, uint16 port);
-    virtual ~node();
-    node(const node&) = delete;
-    node& operator=(const node&) = delete;
+	virtual ~node();
+	node(const node&) = delete;
+	node& operator=(const node&) = delete;
 
 protected:
 	ser::client _client;
@@ -22,4 +22,3 @@ protected:
 } // end namespace Dune
 
 #endif
-
