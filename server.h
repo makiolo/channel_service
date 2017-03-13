@@ -261,6 +261,7 @@ public:
 
 public:
 	fes::bind<ser::string> on_disconnect_client;
+	fes::bind<int, int, ser::stream, ser::string> on_data;
 protected:
 	virtual void notify_alias(const ser::string& guid, const ser::string& alias) override;
 
