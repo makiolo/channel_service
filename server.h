@@ -52,10 +52,7 @@ class serializer_API network_room
 public:
 	using weak_client_type = std::weak_ptr<ser::network_client_proxy>;
 
-	explicit network_room()
-		: _name(ROOM_DEFAULT)
-	{ ; }
-	~network_room() { ; }
+	explicit network_room() : _name(ROOM_DEFAULT) { ; }
 	network_room(const network_room&) = delete;
 	network_room& operator=(const network_room&) = delete;
 
@@ -148,8 +145,6 @@ protected:
 class serializer_API network_room_system
 {
 public:
-	explicit network_room_system() { ; }
-	~network_room_system() { ; }
 	network_room_system(const network_room_system&) = delete;
 	network_room_system& operator=(const network_room_system&) = delete;
 
@@ -159,11 +154,6 @@ public:
 		room.set_name(name);
 		return room;
 	}
-
-	// const ser::network_room& get_room(const ser::string& name = ROOM_DEFAULT) const
-	// {
-	// 	return _rooms.at(name);
-	// }
 
 	/*
 	 * remove disconnected clients
@@ -294,4 +284,3 @@ protected:
 } // end namespace Dune
 
 #endif
-
