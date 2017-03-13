@@ -6,7 +6,9 @@ using namespace RakNet;
 
 namespace ser {
 
-node::node(const ser::string& alias, uint16 port) : _server(alias, port)
+node::node(const ser::string& alias, uint16 port)
+	: _alias(alias)
+	, _server(alias, port)
 {
 	;
 }
