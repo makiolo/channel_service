@@ -6,11 +6,33 @@
 
 namespace ser {
 
+template <typename ... Args>
 class serializer_API node
 {
 public:
-	explicit node(const ser::string& alias, uint16 port);
-	virtual ~node();
+	explicit node(const ser::string& alias, uint16 port)
+		: _alias(alias)
+		, _server(alias, port)
+	{
+		_server.get_channel(0).connect(
+			[&](int version, const ser::stream& pipe, const ser::string& guid) {
+				// port
+				// version
+				// pipe to tuple<Args> -> to unpack Args ...
+				/*
+				std::cout << "version = " << version << std::endl;
+				ser::deserialize<Args...>(pipe, data);
+				std::cout << "data = " << data << std::endl;
+				*/
+			}
+		);
+	}
+
+	virtual ~node()
+	{
+		;
+	}
+	
 	node(const node&) = delete;
 	node& operator=(const node&) = delete;
 	
