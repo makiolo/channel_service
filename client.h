@@ -15,32 +15,10 @@ public:
 
 	void status();
 	void disconnect();
-
 	virtual void on_package(RakNet::Packet* packet) override;
 
-	// send all
 	template <typename ... Args>
-	void broadcast(int port, int version, Args&& ... data) const
-	{
-		RakNet::BitStream pipe;
-		write_header(pipe, NET_MESSAGE_BROADCAST);
-		ser::serialize(pipe, this->get_guid(), port, version, std::forward<Args>(data)...);
-		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
-	}
-
-	// send anybody
-	template <typename ... Args>
-	void send_room(const ser::string& room, int version, Args&& ... data) const
-	{
-		RakNet::BitStream pipe;
-		write_header(pipe, NET_MESSAGE_ROOM_FORWARD);
-		ser::serialize(pipe, this->get_guid(), room, version, std::forward<Args>(data)...);
-		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
-	}
-
-	// send one
-	template <typename ... Args>
-	void send_private(const ser::string& to_guid, int port, int version, Args&& ... data) const
+	void one(const ser::string& to_guid, int port, int version, Args&& ... data) const
 	{
 		if(this->convert_to_guid(_server_guid) == to_guid)
 		{
@@ -55,9 +33,26 @@ public:
 		}
 	}
 
-	// send to server
 	template <typename ... Args>
-	void send_parent(int port, int version, Args&& ... data) const
+	void all(int port, int version, Args&& ... data) const
+	{
+		RakNet::BitStream pipe;
+		write_header(pipe, NET_MESSAGE_BROADCAST);
+		ser::serialize(pipe, this->get_guid(), port, version, std::forward<Args>(data)...);
+		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
+	}
+
+	template <typename ... Args>
+	void topic(const ser::string& room, int version, Args&& ... data) const
+	{
+		RakNet::BitStream pipe;
+		write_header(pipe, NET_MESSAGE_ROOM_FORWARD);
+		ser::serialize(pipe, this->get_guid(), room, version, std::forward<Args>(data)...);
+		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
+	}
+
+	template <typename ... Args>
+	void up(int port, int version, Args&& ... data) const
 	{
 		RakNet::BitStream pipe;
 		write_header(pipe, NET_MESSAGE_DATA);
