@@ -145,6 +145,7 @@ protected:
 class serializer_API network_room_system
 {
 public:
+	explicit network_room_system() { ; }
 	network_room_system(const network_room_system&) = delete;
 	network_room_system& operator=(const network_room_system&) = delete;
 

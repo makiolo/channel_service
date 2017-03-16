@@ -57,7 +57,7 @@ public:
 	// consumo puede bloquear
 	inline auto get() -> std::tuple<Args...>
 	{
-		auto& t = _buf.get();
+		auto& t = _output.get();
 		// enviar la tupla a local
 		// propagar en local
 		

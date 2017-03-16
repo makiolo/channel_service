@@ -98,7 +98,7 @@ int main()
 						if(i > 1) buf += (word + ' ');
 						++i;
 					}
-					client.send_private(guid, CHAT, 1, buf.c_str());
+					client.one(guid, CHAT, 1, buf.c_str());
 				}
 				catch(std::exception& e)
 				{
@@ -115,7 +115,7 @@ int main()
 					if(i > 1) buf += (word + ' ');
 					++i;
 				}
-				client.send_room(room, 1, buf.c_str());
+				client.topic(room, 1, buf.c_str());
 			}
 			else if(chunks[0] == "ping")
 			{
@@ -166,7 +166,7 @@ int main()
 					if(i > 0) buf += (word + ' ');
 					++i;
 				}
-				client.send_parent(CHAT, 1, buf.c_str());
+				client.up(CHAT, 1, buf.c_str());
 			}
 			else if(chunks[0] == "status")
 			{
@@ -174,8 +174,8 @@ int main()
 			}
 			else
 			{
-				client.broadcast(CHAT, 1, command.c_str());
-				client.send_parent(CHAT, 1, command.c_str());
+				client.all(CHAT, 1, command.c_str());
+				client.up(CHAT, 1, command.c_str());
 			}
 			yield();
 		}

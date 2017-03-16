@@ -22,7 +22,7 @@ public:
 	{
 		if(this->convert_to_guid(_server_guid) == to_guid)
 		{
-			send_parent(port, version, std::forward<Args>(data)...);
+			up(port, version, std::forward<Args>(data)...);
 		}
 		else
 		{

@@ -20,7 +20,7 @@ int main2()
 	ser::client client("client", "127.0.0.1", 5555);
 	client.on_connection_request_accepted.connect([&](auto guid_server) {
 		std::cout << "conectado a " << guid_server << std::endl;
-		client.send_parent(1, 2, 3);
+		client.up(1, 2, 3);
 	});
 	server.get_channel(1).connect(
 		[&](int version, const ser::stream& pipe, const ser::string& guid) {
