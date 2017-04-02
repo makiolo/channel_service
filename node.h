@@ -3,6 +3,7 @@
 
 #include "client.h"
 #include "server.h"
+#include "metacommon/common.h"
 
 namespace ser {
 
@@ -19,6 +20,8 @@ public:
 				// port
 				// version
 				// pipe to tuple<Args> -> to unpack Args ...
+				// ser::deserialize(pipe, data...);
+
 
 				// enviar la tupla a remoto
 				// propagar en remoto
