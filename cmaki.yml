@@ -6,6 +6,7 @@
     depends:
         - raknet
         - fast-event-system
+        - cryptopp
     post_install:
         - ./*.h include/channel_service
     mode: dr
@@ -14,4 +15,3 @@
         - channel_service:
             info:
                 <<: *library_dynamic_exact
-
