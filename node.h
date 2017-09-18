@@ -7,6 +7,34 @@
 
 namespace ser {
 
+/*
+un nodo tipo MQTT acumula estado:
+- un mapa (json), con clave (topic), tupla<Args>
+- puede obedecer a ordenes externas de cambiar un estado
+- cuando hay un cambio de estado, lo notifica por broadcast
+
+// PC1 (192.168.1.100)
+auto n1 = node<float, float>("producer humitura", 2000);
+// notifica temperatura y humedad (por broadcast, lo reciben todos los que se han conectado)
+node(25.0f, 67.0f);
+node(25.5f, 66.5f);
+node(26.f, 65.0f);
+
+// PC2 (192.168.1.101)
+auto n2 = node<float, float>("consumer humitura", 2000);
+// subscribe conecta PC2 con PC1 mediante UDP
+n2.subscribe("192.168.1.100", 2000);
+// si tuvieramos un "tablon" con:
+192.168.1.100:2000 -> "producer humitura"
+192.168.1.101:2000 -> "consumer humitura"
+// para hacer:
+n2.subscribe("producer humitura");
+for(auto& e in n2.range(yield))
+{
+	// unpack tuple
+}
+*/
+	
 template <typename ... Args>
 class serializer_API node
 {
