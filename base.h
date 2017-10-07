@@ -12,7 +12,7 @@
 #include <fast-event-system/bind.h>
 #include <fast-event-system/clock.h>
 #include <fast-event-system/async_fast.h>
-#include <cppunix/coroutine.h>
+#include <coroutine/coroutine.h>
 #include "serialize.h"
 #include "deserialize.h"
 #include "api.h"
@@ -80,24 +80,24 @@ public:
 		}
 	}
 
-	void update(cu::push_type<void>& yield, fes::deltatime tmax = fes::deltatime(16))
+	void fortime(cu::yield_type& yield, fes::deltatime time)
+	{
+		auto mark = fes::high_resolution_clock() + time;
+		while(fes::high_resolution_clock() <= mark)
+		{
+			dispatch_one();
+			yield( cu::control_type{} );
+		}
+	}
+
+	void update(cu::yield_type& yield, fes::deltatime tmax = fes::deltatime(16))
 	{
 		fes::marktime timeout = fes::high_resolution_clock() + tmax;
 		bool has_next = true;
 		while(has_next && (fes::high_resolution_clock() <= timeout))
 		{
 			has_next = dispatch_one();
-			yield();
-		}
-	}
-
-	void fortime(cu::push_type<void>& yield, fes::deltatime time)
-	{
-		auto mark = fes::high_resolution_clock() + time;
-		while(fes::high_resolution_clock() <= mark)
-		{
-			dispatch_one();
-			yield();
+			yield( cu::control_type{} );
 		}
 	}
 

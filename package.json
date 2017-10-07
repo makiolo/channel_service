@@ -1,0 +1,39 @@
+{
+  "name": "channel_service",
+  "version": "1.0.0",
+  "description": "gcc 4.9 / clang 3.6: [![Build Status](https://travis-ci.org/makiolo/channel_service.svg?branch=master)](https://travis-ci.org/makiolo/channel_service)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "ci": "curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/ci.sh | bash",
+    "docker": "curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/docker.sh | bash",
+    "clean": "cmaki clean",
+    "setup": "cmaki setup",
+    "compile": "cmaki compile",
+    "install": "cmaki setup && cmaki compile",
+    "test": "cmaki test",
+    "upload": "cmaki upload"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makiolo/channel_service.git"
+  },
+  "keywords": [
+    "c++"
+  ],
+  "author": "Ricardo Marmolejo García",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/makiolo/channel_service/issues"
+  },
+  "dependencies": {
+    "cmaki": "https://github.com/makiolo/cmaki.git",
+    "cmaki_generator": "https://github.com/makiolo/cmaki_generator.git",
+    "cmaki_identifier": "https://github.com/makiolo/cmaki_identifier.git",
+    "cmaki_scripts": "https://github.com/makiolo/cmaki_scripts.git",
+    "metacommon": "https://github.com/makiolo/metacommon.git"
+  },
+  "homepage": "https://github.com/makiolo/channel_service#readme"
+}
