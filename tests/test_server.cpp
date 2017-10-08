@@ -14,53 +14,13 @@
 #include "../util.h"
 
 #define CHAT 300
-//
-// int main2()
-// {
-// 	ser::network_server me("server", 5555);
-// 	ser::client client("client", "127.0.0.1", 5555);
-// 	client.on_connection_request_accepted.connect([&](auto guid_server) {
-// 		std::cout << "conectado a " << guid_server << std::endl;
-// 		client.up(1, 2, 3);
-// 	});
-// 	me.get_channel(1).connect(
-// 		[&](int version, const ser::stream& pipe, const ser::string& guid) {
-// 			std::cout << "version = " << version << std::endl;
-// 			int data;
-// 			ser::deserialize(pipe, data);
-// 			std::cout << "data = " << data << std::endl;
-// 		}
-// 	);
-//
-// 	std::thread t([&](){
-// 		while(true)
-// 		{
-// 			me.dispatch_one();
-// 			client.dispatch_one();
-// 		}
-// 	});
-// 	t.join();
-// 	return 0;
-// }
 
 int main()
 {
 	cu::parallel_scheduler sch;
 
-	// std::cout << std::unitbuf;
-	// std::cout.sync_with_stdio(false);
-
 	ser::network_server me("server", 3333);
 	std::cout << "server with guid: " << me.get_guid() << std::endl;
-	// me.on_new_client.connect([&](auto guid) {
-	// 	std::cout << "joined client " << guid << std::endl;
-	// });
-	// me.on_changed_alias.connect([&](auto guid, auto alias) {
-	// 	std::cout << "client " << guid << " changed your alias to " << alias << std::endl;
-	// });
-	// me.on_disconnect.connect([&](auto guid) {
-	// 	std::cout << "disconnection any " << guid << std::endl;
-	// });
 
 	me.get_channel(CHAT).connect(
 		[&](int version, const ser::stream& pipe, const ser::string& guid) {
@@ -163,4 +123,3 @@ int main()
 	sch.run_forever();
 	return 0;
 }
-
