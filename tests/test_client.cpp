@@ -113,11 +113,11 @@ int main()
 			{
 				me.set_alias(chunks[1].c_str());
 			}
-			else if(chunks[0] == "join")
+			else if(chunks[0] == "subscribe")
 			{
 				auto r = chunks[1];
 				// send msg to server
-				me.join(r.c_str());
+				me.subscribe(r.c_str());
 				// register callback
 				// conns[r] = me.get_room(r).connect(
 				me.get_room(r).connect(
@@ -131,10 +131,10 @@ int main()
 					}
 				);
 			}
-			else if(chunks[0] == "leave")
+			else if(chunks[0] == "unsubscribe")
 			{
 				// send msg to server
-				me.leave(chunks[1].c_str());
+				me.unsubscribe(chunks[1].c_str());
 				// remove callback
 				// conns.erase(chunks[1]);
 			}

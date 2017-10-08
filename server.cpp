@@ -199,7 +199,7 @@ void network_server::on_package(RakNet::Packet* packet)
 			}
 			break;
 		}
-		case NET_MESSAGE_ROOM_JOIN:
+		case NET_MESSAGE_ROOM_SUBSCRIBE:
 		{
 			ser::string from_guid;
 			ser::string room;
@@ -218,7 +218,7 @@ void network_server::on_package(RakNet::Packet* packet)
 			}
 			break;
 		}
-		case NET_MESSAGE_ROOM_LEAVE:
+		case NET_MESSAGE_ROOM_UNSUBSCRIBE:
 		{
 			ser::string from_guid;
 			ser::string room;

@@ -60,18 +60,18 @@ public:
 		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
 	}
 
-	void join(const ser::string& room)
+	void subscribe(const ser::string& room)
 	{
 		RakNet::BitStream pipe;
-		write_header(pipe, NET_MESSAGE_ROOM_JOIN);
+		write_header(pipe, NET_MESSAGE_ROOM_SUBSCRIBE);
 		ser::serialize(pipe, this->get_guid(), room);
 		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
 	}
 
-	void leave(const ser::string& room)
+	void unsubscribe(const ser::string& room)
 	{
 		RakNet::BitStream pipe;
-		write_header(pipe, NET_MESSAGE_ROOM_LEAVE);
+		write_header(pipe, NET_MESSAGE_ROOM_UNSUBSCRIBE);
 		ser::serialize(pipe, this->get_guid(), room);
 		_peer->Send(&pipe, MEDIUM_PRIORITY, RELIABLE, 0, _server_guid, false);
 	}
