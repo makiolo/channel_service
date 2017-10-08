@@ -26,24 +26,6 @@ int main()
 	ser::client me("client", "127.0.0.1", 3333);
 	std::cout << "client with guid: " << me.get_guid() << std::endl;
 
-	// // si el cliente falla la conexion
-	// me.id_connection_attempt_failed.connect([&](auto packet) {
-	// 	LOGE("connection with server failed");
-	// 	exit(1);
-	// });
-	// // un nuevo cliente se ha conectado al servidor
-	// me.on_new_client.connect([&](auto new_guid) {
-	// 	std::cout << "joined client " << new_guid << std::endl;
-	// });
-	// // otro cliente se ha cambiado de nombre
-	// me.on_changed_alias.connect([&](auto guid, auto alias) {
-	// 	std::cout << "client " << guid << " changed your alias to " << alias << std::endl;
-	// });
-	// // si se ha desconectado un cliente hermano
-	// me.on_disconnect.connect([&](auto guid) {
-	// 	LOGI("disconnection of client %s", guid.C_String());
-	// });
-
 	me.get_channel(CHAT).connect(
 		[&](int version, const ser::stream& pipe, const ser::string& guid) {
 			if(me.get_guid() != guid)
@@ -62,8 +44,8 @@ int main()
 			me.update(yield);
 		}
 	});
-	sch.spawn([&quit, &me](auto& yield){
-
+	sch.spawn([&quit, &me](auto& yield)
+	{
 		std::map<std::string, ser::net_connection> conns;
 		while(!quit)
 		{
@@ -182,4 +164,3 @@ int main()
 	sch.run_forever();
 	return 0;
 }
-
