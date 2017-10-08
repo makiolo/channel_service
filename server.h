@@ -247,7 +247,6 @@ public:
 	template <typename ... Args>
 	void topic(const ser::string& room, int version, Args&& ... data)
 	{
-		// is non-const, can create new rooms
 		for(auto& weak_client : _room_system.get_room(room))
 		{
 			if(auto client = weak_client.lock())

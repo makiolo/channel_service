@@ -72,43 +72,59 @@ public:
 		yield( cu::control_type{} );
 	}
 	
-	void wait(fes::deltatime timeout = fes::deltatime(16))
+	void wait(fes::deltatime timeout = fes::deltatime(0))
 	{
 		if(timeout > fes::deltatime(0))
 		{
 			auto mark = fes::high_resolution_clock() + timeout;
 			while(fes::high_resolution_clock() <= mark)
 			{
-				if(!empty())
+				if(dispatch_one())
 				{
-					update();
 					break;
 				}
 			}
 		}
 		else
 		{
-			update();
+			while(true)
+			{
+				if(dispatch_one())
+				{
+					break;
+				}
+#ifndef _WIN32
+				// for avoid sleeps, use coroutines
+				usleep(100);
+#endif
+			}
 		}
 	}
 
-	void wait(cu::yield_type& yield, fes::deltatime timeout = fes::deltatime(16))
+	void wait(cu::yield_type& yield, fes::deltatime timeout = fes::deltatime(0))
 	{
 		if(timeout > fes::deltatime(0))
 		{
 			auto mark = fes::high_resolution_clock() + timeout;
 			while(fes::high_resolution_clock() <= mark)
 			{
-				if(!empty())
+				if(dispatch_one())
 				{
-					update(yield);
 					break;
 				}
+				yield( cu::control_type{} );
 			}
 		}
 		else
 		{
-			update(yield);
+			while(true)
+			{
+				if(dispatch_one())
+				{
+					break;
+				}
+				yield( cu::control_type{} );
+			}
 		}
 	}
 

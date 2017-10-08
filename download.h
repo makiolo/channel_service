@@ -1,6 +1,9 @@
 #ifndef _CU_DOWNLOAD_H_
 #define _CU_DOWNLOAD_H_
 
+#include <raknet/TCPInterface.h>
+#include <raknet/HTTPConnection.h>
+
 void download(cu::yield_type& yield, const char* url, const char* filename)
 {
     RakNet::TCPInterface tcp;

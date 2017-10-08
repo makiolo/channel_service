@@ -21,6 +21,7 @@ network_server::network_server(const ser::string& alias, uint16 port, uint16 max
 	on_id_connection_lost.connect(on_disconnect_client);
 	on_id_disconnection_notification.connect(on_disconnect_client);
 	on_disconnect_client.connect([&](const ser::string& guid) {
+		std::cout << "client disconnected " << guid << std::endl;
 		auto ite = _clients.end();
 		auto it = _clients.find(guid.C_String());
 		if(it != ite)
