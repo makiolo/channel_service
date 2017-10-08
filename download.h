@@ -1,7 +1,7 @@
 #ifndef _DOWNLOAD_H_
 #define _DOWNLOAD_H_
 
-void download(const char* url, const char* filename)
+void download(cu::yield_type& yield, const char* url, const char* filename)
 {
     RakNet::TCPInterface tcp;
     RakNet::HTTPConnection httpConnection;
@@ -28,9 +28,7 @@ void download(const char* url, const char* filename)
          return;
       }
 
-      // Prevent 100% cpu usage
-      // TODO: use yield()
-      RakSleep(30);
+      yield( cu::control_type{} );
     }
 
 }
