@@ -61,43 +61,54 @@ public:
 	network_base(const network_base&) = delete;
 	network_base& operator=(const network_base&) = delete;
 
-	void update(fes::deltatime tmax = fes::deltatime(16))
+	void update()
 	{
-		fes::marktime timeout = fes::high_resolution_clock() + tmax;
-		bool has_next = true;
-		while(has_next && (fes::high_resolution_clock() <= timeout))
+		dispatch_one();
+	}
+	
+	void update(cu::yield_type& yield)
+	{
+		dispatch_one();
+		yield( cu::control_type{} );
+	}
+	
+	void wait(fes::deltatime timeout = fes::deltatime(16))
+	{
+		if(timeout > fes::deltatime(0))
 		{
-			has_next = dispatch_one();
+			auto mark = fes::high_resolution_clock() + timeout;
+			while(fes::high_resolution_clock() <= mark)
+			{
+				if(!empty())
+				{
+					update();
+					break;
+				}
+			}
+		}
+		else
+		{
+			update();
 		}
 	}
 
-	void fortime(fes::deltatime time)
+	void wait(cu::yield_type& yield, fes::deltatime timeout = fes::deltatime(16))
 	{
-		auto mark = fes::high_resolution_clock() + time;
-		while(fes::high_resolution_clock() <= mark)
+		if(timeout > fes::deltatime(0))
 		{
-			dispatch_one();
+			auto mark = fes::high_resolution_clock() + timeout;
+			while(fes::high_resolution_clock() <= mark)
+			{
+				if(!empty())
+				{
+					update(yield);
+					break;
+				}
+			}
 		}
-	}
-
-	void fortime(cu::yield_type& yield, fes::deltatime time)
-	{
-		auto mark = fes::high_resolution_clock() + time;
-		while(fes::high_resolution_clock() <= mark)
+		else
 		{
-			dispatch_one();
-			yield( cu::control_type{} );
-		}
-	}
-
-	void update(cu::yield_type& yield, fes::deltatime tmax = fes::deltatime(16))
-	{
-		fes::marktime timeout = fes::high_resolution_clock() + tmax;
-		bool has_next = true;
-		while(has_next && (fes::high_resolution_clock() <= timeout))
-		{
-			has_next = dispatch_one();
-			yield( cu::control_type{} );
+			update(yield);
 		}
 	}
 
@@ -127,7 +138,7 @@ public:
 
 	ser::string get_guid_sender(RakNet::Packet* packet) const
 	{
-		auto& guid =  _peer->GetGuidFromSystemAddress(packet->systemAddress);
+		auto& guid = _peer->GetGuidFromSystemAddress(packet->systemAddress);
 		return ser::string( guid.ToString() );
 	}
 
@@ -162,8 +173,8 @@ public:
 	const auto& get_alias() const {return _alias;}
 	bool valid_alias() const { return _alias.GetLength() > 0; }
 
+	// can throw exceptions
 	ser::string get_alias(const ser::string& guid) const
-		// can throw exceptions
 	{
 		auto it = _resolver.find(guid);
 		auto ite = _resolver.end();
@@ -177,8 +188,8 @@ public:
 		}
 	}
 
+	// can throw exceptions
 	ser::string get_guid(const ser::string& alias) const
-		// can throw exceptions
 	{
 		for(auto& pair : _resolver)
 		{
@@ -246,4 +257,3 @@ protected:
 }
 
 #endif
-
