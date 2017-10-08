@@ -33,7 +33,11 @@
     "cmaki_generator": "https://github.com/makiolo/cmaki_generator.git",
     "cmaki_identifier": "https://github.com/makiolo/cmaki_identifier.git",
     "cmaki_scripts": "https://github.com/makiolo/cmaki_scripts.git",
-    "metacommon": "https://github.com/makiolo/metacommon.git"
+    "metacommon": "https://github.com/makiolo/metacommon.git",
+    "fast-event-system": "https://github.com/makiolo/fast-event-system.git",
+    "asyncply": "https://github.com/makiolo/asyncply.git",
+    "teelogging": "https://github.com/makiolo/teelogging.git",
+    "coroutine": "https://github.com/makiolo/coroutine.git"
   },
   "homepage": "https://github.com/makiolo/channel_service#readme"
 }
