@@ -28,11 +28,8 @@
   "bugs": {
     "url": "https://github.com/makiolo/channel_service/issues"
   },
-  "dependencies": {
-    "cmaki": "https://github.com/makiolo/cmaki.git",
-    "cmaki_generator": "https://github.com/makiolo/cmaki_generator.git",
-    "cmaki_identifier": "https://github.com/makiolo/cmaki_identifier.git",
-    "cmaki_scripts": "https://github.com/makiolo/cmaki_scripts.git",
+  "devDependencies": {
+    "npm-mas-mas": "git+https://github.com/makiolo/npm-mas-mas.git",
     "metacommon": "https://github.com/makiolo/metacommon.git",
     "fast-event-system": "https://github.com/makiolo/fast-event-system.git",
     "asyncply": "https://github.com/makiolo/asyncply.git",
